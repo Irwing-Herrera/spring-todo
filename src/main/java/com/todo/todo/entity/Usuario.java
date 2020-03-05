@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user", schema = "todo")
-public class User {
+public class Usuario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class User {
     private String password;
 
     @Column(name = "token", nullable = true)
-    private Integer token;
+    private String token;
     
     // Relaciones
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -95,16 +95,16 @@ public class User {
     }
 
     /**
-     * @return Integer return the token
+     * @return String return the token
      */
-    public Integer getToken() {
+    public String getToken() {
         return token;
     }
 
     /**
      * @param token the token to set
      */
-    public void setToken(Integer token) {
+    public void setToken(String token) {
         this.token = token;
     }
 

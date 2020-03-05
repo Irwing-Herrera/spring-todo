@@ -29,7 +29,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn
-    private User user;
+    private Usuario user;
 
     // Set & Get
 
