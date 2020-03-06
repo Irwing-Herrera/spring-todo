@@ -2,6 +2,7 @@ package com.todo.todo.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,9 +28,21 @@ public class Task {
     @Column(name = "state", columnDefinition = "boolean default false")
     private Boolean state;
 
-    @ManyToOne
-    @JoinColumn
-    private Usuario user;
+    // Relaciones
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Usuario usuario;
+
+    public Task() {
+    }
+
+    public Task(Integer id, String name, String description, Boolean state, Usuario usuario) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.state = state;
+        this.usuario = usuario;
+    }
 
     // Set & Get
 
@@ -87,6 +100,20 @@ public class Task {
      */
     public void setState(Boolean state) {
         this.state = state;
+    }
+
+    /**
+     * @return Usuario return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }

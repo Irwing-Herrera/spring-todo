@@ -24,10 +24,15 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void setToken(String email, String token) {
-        Usuario user = userRepository.findByEmail(email);
+    public void setToken(String username, String token) {
+        Usuario user = userRepository.findByUsername(username);
         user.setToken(token);
         userRepository.save(user);
+    }
+
+    @Override
+    public Usuario findByUsername(String username) {
+        return (Usuario) userRepository.findByUsername(username);
     }
     
 }

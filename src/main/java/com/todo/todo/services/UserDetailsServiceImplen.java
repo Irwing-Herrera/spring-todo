@@ -22,16 +22,16 @@ public class UserDetailsServiceImplen implements UserDetailsService {
     // busca en la base de datos un registro que lo contenga y (si se encuentra) devuelve una 
     // instancia de User. 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario user = userRepository.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException(email);
+            throw new UsernameNotFoundException(username);
         }
-        return new User(user.getEmail(), user.getPassword(), emptyList());
+        return new User(user.getUsername(), user.getPassword(), emptyList());
     }
 
-    public void setToken(String email, String token) {
-        Usuario user = userRepository.findByUsername(email);
+    public void setToken(String username, String token) {
+        Usuario user = userRepository.findByUsername(username);
         user.setToken(token);
         userRepository.save(user);
     }

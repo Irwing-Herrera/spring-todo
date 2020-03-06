@@ -3,6 +3,7 @@ package com.todo.todo.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.todo.todo.entity.Usuario;
 import com.todo.todo.services.UserDetailsServiceImplen;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +41,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException {
         try {
-            User creds = new ObjectMapper().readValue(req.getInputStream(), User.class);
+            Usuario creds = new ObjectMapper().readValue(req.getInputStream(), Usuario.class);
 
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
                     creds.getPassword(), new ArrayList<>()));
@@ -58,6 +59,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
 
         System.out.println(token);
-        userDetailsServiceImplen.setToken(((User) auth.getPrincipal()).getUsername(), token);
+        userDetailsServiceImplen.setToken(((User)auth.getPrincipal()).getUsername(), token);
     }
 }

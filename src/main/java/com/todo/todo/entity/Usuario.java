@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,10 +34,24 @@ public class Usuario {
     private String token;
     
     // Relaciones
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Task> tasks;
+
+    public Usuario(){
+
+    }
+
+    public Usuario(Integer id, String username, String email, String password, String token) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.token = token;
+    }
     
     // Set & Get
+
+
 
     /**
      * @return Integer return the id
@@ -106,6 +121,20 @@ public class Usuario {
      */
     public void setToken(String token) {
         this.token = token;
+    }
+
+    /**
+     * @return Set<Task> return the tasks
+     */
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
+     * @param tasks the tasks to set
+     */
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
 }
